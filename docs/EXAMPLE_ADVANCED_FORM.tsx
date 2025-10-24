@@ -147,10 +147,6 @@ export function AdvancedForm() {
           submitButtonText="Update Profile"
           resetButtonText="Clear Form"
           showResetButton={true}
-          customization={{
-            showAnimations: true,
-            animationDuration: 300
-          }}
         />
       </div>
     </div>

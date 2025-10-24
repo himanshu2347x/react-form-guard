@@ -123,8 +123,7 @@ const fields = [
   customization={{
     containerClass: "my-form",
     inputClass: "my-input",
-    buttonClass: "my-button",
-    showAnimations: true
+    buttonClass: "my-button"
   }}
 />
 
@@ -237,9 +236,5 @@ const contactFields = [
 }
 ```
 
-## Browser Support
-- All modern browsers (Chrome, Firefox, Safari, Edge)
-- Internet Explorer 11 (with polyfills)
-
 ## License
-MIT © [Your Name](LICENSE)
+MIT © [Himanshu Sinha](LICENSE)
