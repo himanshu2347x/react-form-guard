@@ -1,6 +1,6 @@
 {
   "name": "formguardian-react",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A reusable, customizable Form Validator Widget for React with comprehensive validation, error handling, and micro-animations.",
   "private": false,
   "type": "module",
