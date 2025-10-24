@@ -1,7 +1,7 @@
 // Example: Advanced Form with Multiple Field Types and Validators
 
-import { DynamicForm } from '../src/index';
-import type { FieldConfig } from '../src/lib/types';
+import { DynamicForm } from '../index';
+import type { FieldConfig } from '../lib/types';
 
 export function AdvancedForm() {
   const fields: FieldConfig[] = [
