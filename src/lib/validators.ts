@@ -131,6 +131,15 @@ export async function validateField(
     };
   }
 
+  // Type guard to check if the type is a valid ValidatorType
+  const isValidType = (type: string): type is ValidatorType => {
+    return type in VALIDATORS;
+  };
+
+  if (!isValidType(normalizedRule.type)) {
+    return { isValid: true, message: '' };
+  }
+
   const validator = VALIDATORS[normalizedRule.type];
   if (!validator) {
     return { isValid: true, message: '' };

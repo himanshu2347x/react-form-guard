@@ -3,7 +3,7 @@
  */
 
 import { useCallback, useEffect, useState } from 'react';
-import type { FieldConfig, FormState, ValidatorType } from '../lib/types';
+import type { FieldConfig, FormState, ValidationRule, ValidatorType } from '../lib/types';
 import { validateField, validateForm } from '../lib/validators';
 
 /**
@@ -43,11 +43,11 @@ export function useFormValidator(
       }
 
       const validators = Array.isArray(field.validators)
-        ? field.validators
+        ? field.validators.map(v => typeof v === 'string' ? { type: v as ValidatorType } : v)
         : [{ type: field.validators[0] as ValidatorType }];
 
       for (const rule of validators) {
-        const { isValid, message } = await validateField(value, rule, formState.values);
+        const { isValid, message } = await validateField(value, rule as ValidationRule, formState.values);
         if (!isValid) {
           return message;
         }
@@ -121,7 +121,13 @@ export function useFormValidator(
       isValidating: true,
     }));
 
-    const errors = await validateForm(formState.values, fields);
+    const transformedFields = fields.map(field => ({
+      name: field.name,
+      validators: field.validators?.map(v => 
+        typeof v === 'string' ? { type: v as ValidatorType } : v
+      )
+    }));
+    const errors = await validateForm(formState.values, transformedFields);
     const isValid = Object.keys(errors).length === 0;
 
     setFormState((prev) => ({
