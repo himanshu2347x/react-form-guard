@@ -55,8 +55,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "dev": "vite",
-  "build": "vite build && tsc -p tsconfig.build.json",
-  "postbuild": "node scripts/copy-styles.js",
+    "build": "vite build && tsc -p tsconfig.build.json",
+    "postbuild": "node scripts/copy-styles.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
