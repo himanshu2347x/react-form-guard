@@ -1,0 +1,72 @@
+{
+  "name": "formguardian-react",
+  "description": "A reusable, customizable Form Validator Widget for React with comprehensive validation, error handling, and micro-animations",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.js"
+    },
+    "./styles": "./dist/styles/index.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "react",
+    "form",
+    "validation",
+    "validator",
+    "typescript",
+    "form-validation",
+    "error-handling",
+    "animations",
+    "customizable",
+    "reusable"
+  ],
+  "author": "himanshu2347x",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/himanshu2347x/react-form-guard"
+  },
+  "homepage": "https://github.com/himanshu2347x/react-form-guard#readme",
+  "bugs": {
+    "url": "https://github.com/himanshu2347x/react-form-guard/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "build:lib": "tsc -b && vite build --mode lib",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.16",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.16"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@types/node": "^24.6.0",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.4",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.22",
+    "globals": "^16.4.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.45.0",
+    "vite": "^7.1.7"
+  }
+}
