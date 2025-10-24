@@ -1,562 +1,245 @@
 # FormGuardian React
 
-A powerful, reusable, and customizable Form Validator Widget for React with comprehensive validation, error handling, micro-animations, and TypeScript support. Built for easy integration into React applications.
+A powerful yet simple form validator for React applications with built-in validation, animations, and TypeScript support.
 
-[![npm version](https://img.shields.io/npm/v/formguardian-react.svg)](https://www.npmjs.com/package/formguardian-react)
-[![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![NPM Version](https://img.shields.io/npm/v/formguardian-react.svg)](https://www.npmjs.com/package/formguardian-react)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-## Features
-
-✨ **Comprehensive Validation**
-- Built-in validators: required, email, minLength, maxLength, pattern, match, custom, number, url, phone
-- Easy to extend with custom validators
-- Real-time and on-blur validation modes
-
-🎨 **Micro-Animations**
-- Smooth field animations (slide, shake, scale, focus pulse)
-- Loading states with spinner animation
-- Error/success transitions
-- Fully customizable animation timing
-
-🛡️ **Type-Safe**
-- Full TypeScript support
-- Comprehensive type definitions
-- IntelliSense support in IDEs
-
-🎯 **Flexible Field Types**
-- Text, email, password, number, tel, url, date, datetime-local
-- Textarea with custom rows
-- Select dropdowns
-- Checkboxes and radio buttons
-- Easy to add custom field types
-
-🎨 **Customizable Styling**
-- CSS modules included
-- Support for custom CSS classes
-- CSS-in-JS compatible
-- Responsive design out of the box
-- Dark mode ready
-
-🚀 **Developer Experience**
-- Easy to import and use
-- Hooks-based API
-- Zero external dependencies (except React)
-- Excellent error messages
-- Complete documentation
-
-## Installation
-
-```bash
-npm install formguardian-react
-# or
-yarn add formguardian-react
-# or
-pnpm add formguardian-react
-```
+✨ **Instant Form Creation** - Create forms in minutes, not hours  
+🎯 **Built-in Validation** - Email, required, length, pattern, and more  
+🎨 **Ready-to-Use Styles** - Beautiful defaults with easy customization  
+🔄 **Type-Safe** - Full TypeScript support with great IDE experience  
 
 ## Quick Start
 
-```jsx
-import { DynamicForm } from 'formguardian-react';
-import 'formguardian-react/dist/formguardian-react.css'; // Import default styles
+```bash
+npm install formguardian-react
+```
 
-const fields = [
+Import and use in your React app:
+
+```tsx
+import { DynamicForm } from 'formguardian-react';
+import 'formguardian-react/styles';
+
+// Define your form fields
+const loginFields = [
   {
-    name: 'email',
-    label: 'Email Address',
-    type: 'email',
-    placeholder: 'you@example.com',
+    name: "email",
+    label: "Email",
+    type: "email",
     required: true,
     validators: [
-      { type: 'required', message: 'Email is required' },
-      { type: 'email', message: 'Please enter a valid email' }
+      { type: "email", message: "Please enter a valid email" }
     ]
   },
   {
-    name: 'password',
-    label: 'Password',
-    type: 'password',
-    required: true,
+    name: "password",
+    label: "Password",
+    type: "password",
     validators: [
-      { type: 'required' },
-      { type: 'minLength', value: 6, message: 'Min 6 characters' }
+      { type: "minLength", value: 8, message: "Must be at least 8 characters" }
     ]
   }
 ];
 
-function MyForm() {
-  const handleSubmit = async (values) => {
-    console.log('Form data:', values);
-    // Send to API
+// Create your form component
+function LoginForm() {
+  const handleSubmit = (values) => {
+    console.log('Form values:', values);
   };
 
   return (
     <DynamicForm
-      fields={fields}
+      fields={loginFields}
       onSubmit={handleSubmit}
-      submitButtonText="Sign Up"
+      submitButtonText="Sign In"
     />
   );
 }
 ```
 
-## Usage Examples
+## Features
 
-### Basic Form
+### 1. Field Types
+- Text, Email, Password
+- Number, Tel, URL
+- Textarea, Select
+- Checkbox, Radio
+- Date, DateTime
 
-```jsx
-import { DynamicForm } from 'formguardian-react';
+### 2. Built-in Validators
+- ✓ Required fields
+- ✓ Email format
+- ✓ Min/max length
+- ✓ Pattern matching
+- ✓ Field matching
+- ✓ Custom validators
 
-const fields = [
-  {
-    name: 'name',
-    label: 'Full Name',
-    type: 'text',
-    placeholder: 'John Doe',
-    required: true,
-    validators: ['required']
-  }
-];
-
-export function BasicForm() {
-  return (
-    <DynamicForm
-      fields={fields}
-      onSubmit={(values) => console.log(values)}
-    />
-  );
-}
-```
-
-### Advanced Form with Validation
-
-```jsx
-import { DynamicForm } from 'formguardian-react';
-
-const registrationFields = [
-  {
-    name: 'email',
-    label: 'Email',
-    type: 'email',
-    required: true,
-    validators: [
-      'required',
-      { type: 'email', message: 'Invalid email format' }
-    ]
-  },
-  {
-    name: 'password',
-    label: 'Password',
-    type: 'password',
-    required: true,
-    validators: [
-      { type: 'required', message: 'Password is required' },
-      { type: 'minLength', value: 8 },
-      { type: 'pattern', value: /^(?=.*[A-Z])/, message: 'Must contain uppercase' }
-    ]
-  },
-  {
-    name: 'confirmPassword',
-    label: 'Confirm Password',
-    type: 'password',
-    required: true,
-    validators: [
-      { type: 'match', matchField: 'password', message: 'Passwords do not match' }
-    ]
-  }
-];
-
-export function RegistrationForm() {
-  const handleSubmit = async (values) => {
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      body: JSON.stringify(values)
-    });
-    return response.json();
-  };
-
-  return (
-    <DynamicForm
-      fields={registrationFields}
-      onSubmit={handleSubmit}
-      validationMode="onChange"
-      submitButtonText="Create Account"
-      showResetButton
-    />
-  );
-}
-```
-
-### Using Custom Hooks
-
-```jsx
-import { useFormValidator } from 'formguardian-react';
-
-function CustomForm() {
-  const fields = [
-    { name: 'username', validators: ['required'] },
-    { name: 'email', validators: ['required', 'email'] }
-  ];
-
-  const {
-    formState,
-    setFieldValue,
-    setFieldTouched,
-    validateFormFields,
-    resetForm
-  } = useFormValidator(fields, 'onBlur');
-
-  return (
-    <>
-      <input
-        value={formState.values.username}
-        onChange={(e) => setFieldValue('username', e.target.value)}
-        onBlur={() => setFieldTouched('username')}
-      />
-      {formState.errors.username && (
-        <span>{formState.errors.username}</span>
-      )}
-    </>
-  );
-}
-```
-
-## API Documentation
-
-### Field Configuration
-
-```typescript
-interface FieldConfig {
-  name: string;                           // Unique field identifier
-  type?: InputType;                       // Input type (default: 'text')
-  label?: string;                         // Field label
-  placeholder?: string;                   // Placeholder text
-  required?: boolean;                     // Is field required
-  disabled?: boolean;                     // Is field disabled
-  validators?: ValidationRule[];          // Validation rules
-  defaultValue?: unknown;                 // Initial value
-  options?: Array<{ value, label }>;     // For select/radio/checkbox
-  minLength?: number;                     // Min character length
-  maxLength?: number;                     // Max character length
-  pattern?: RegExp | string;              // Regex pattern
-  rows?: number;                          // For textarea
-  className?: string;                     // Custom CSS class
-}
-```
-
-### Supported Input Types
-
-- `text` - Standard text input (default)
-- `email` - Email input
-- `password` - Password input (masked)
-- `number` - Number input
-- `tel` - Telephone input
-- `url` - URL input
-- `date` - Date picker
-- `datetime-local` - Date and time picker
-- `textarea` - Multi-line text area
-- `select` - Dropdown select
-- `checkbox` - Checkbox input
-- `radio` - Radio button group
-
-### Built-in Validators
-
-```typescript
-// String validation
-{ type: 'required', message?: string }
-{ type: 'email', message?: string }
-{ type: 'minLength', value: 5, message?: string }
-{ type: 'maxLength', value: 50, message?: string }
-{ type: 'pattern', value: /regex/, message?: string }
-
-// Field comparison
-{ type: 'match', matchField: 'fieldName', message?: string }
-
-// Type validation
-{ type: 'number', message?: string }
-{ type: 'url', message?: string }
-{ type: 'phone', message?: string }
-
-// Custom validation
-{
-  type: 'custom',
-  custom: (value, formData) => value.length > 3,
-  message?: string
-}
-```
-
-### DynamicForm Component Props
-
-```typescript
-interface DynamicFormProps {
-  fields: FieldConfig[];                              // Form fields
-  onSubmit: (values) => void | Promise<void>;        // Submit handler
-  onError?: (errors) => void;                         // Error callback
-  onValuesChange?: (values) => void;                  // Values change callback
-  validationMode?: 'onChange' | 'onBlur' | 'onSubmit'; // Validation timing
-  validateOnMount?: boolean;                          // Validate on mount
-  customization?: CustomizationOptions;               // Custom styling/animations
-  submitButtonText?: string;                          // Submit button text
-  resetButtonText?: string;                           // Reset button text
-  showResetButton?: boolean;                          // Show reset button
-  disabled?: boolean;                                 // Disable entire form
-  className?: string;                                 // Container CSS class
-}
-```
-
-### Hooks API
-
-#### useFormValidator
-
-```typescript
-const {
-  formState,           // Current form state (values, errors, touched, isValid)
-  setFieldValue,       // Update a field value
-  setFieldTouched,     // Mark a field as touched
-  validateFormFields,  // Validate entire form
-  validateSingleField, // Validate a single field
-  resetForm,           // Reset form to initial state
-  setFieldValues       // Set multiple field values at once
-} = useFormValidator(fields, 'onBlur', false);
-```
-
-#### useFormSubmission
-
-```typescript
-const {
-  handleSubmit,  // Form submit handler
-  isSubmitting,  // Is form currently being submitted
-  submitError,   // Error message from submission
-  setSubmitError // Manually set error message
-} = useFormSubmission(onSubmit, validateForm, values);
-```
-
-### Utility Functions
-
-#### validateField
-
-```typescript
-import { validateField } from 'formguardian-react';
-
-const result = await validateField(
-  'user@example.com',
-  { type: 'email' }
-);
-// { isValid: true, message: '' }
-```
-
-#### validateForm
-
-```typescript
-import { validateForm } from 'formguardian-react';
-
-const errors = await validateForm(formValues, fields);
-// { password: 'Password must be at least 6 characters' }
-```
-
-#### isEmpty
-
-```typescript
-import { isEmpty } from 'formguardian-react';
-
-isEmpty('');      // true
-isEmpty([]);      // true
-isEmpty(null);    // true
-isEmpty('hello'); // false
-```
-
-#### sanitizeValues
-
-```typescript
-import { sanitizeValues } from 'formguardian-react';
-
-const clean = sanitizeValues(formValues, fields);
-// Trims strings, removes empty values
-```
-
-## Customization
-
-### Custom Styling
-
-```jsx
+### 3. Real-time Validation
+```tsx
+// Validate as user types
 <DynamicForm
   fields={fields}
-  onSubmit={handleSubmit}
-  customization={{
-    inputClass: 'my-input-class',
-    errorClass: 'my-error-class',
-    buttonClass: 'my-button-class',
-    containerClass: 'my-container-class',
-    labelClass: 'my-label-class',
-    showAnimations: true,
-    animationDuration: 300,
-    theme: 'dark'
+  validationMode="onChange"
+/>
+
+// Validate when field loses focus
+<DynamicForm
+  fields={fields}
+  validationMode="onBlur"
+/>
+```
+
+### 4. Async Validation & Submission
+```tsx
+const fields = [
+  {
+    name: "username",
+    validators: [{
+      type: "custom",
+      message: "Username taken",
+      custom: async (value) => {
+        const response = await checkUsername(value);
+        return response.available;
+      }
+    }]
+  }
+];
+
+// Async form submission
+<DynamicForm
+  fields={fields}
+  onSubmit={async (values) => {
+    await saveToAPI(values);
   }}
 />
 ```
 
-### CSS Override
+### 5. Easy Styling
+```tsx
+// Add custom classes
+<DynamicForm
+  customization={{
+    containerClass: "my-form",
+    inputClass: "my-input",
+    buttonClass: "my-button",
+    showAnimations: true
+  }}
+/>
 
-```css
-/* Override default styles */
-.form-input {
-  border-color: #your-color;
-  padding: 12px;
-}
-
-.form-error {
-  color: #your-error-color;
-  font-size: 14px;
-}
-
-.form-button {
-  background-color: #your-primary-color;
-}
+// Or use default beautiful styles
+import 'formguardian-react/styles';
 ```
 
-## Example Forms
+## Common Examples
 
-### Login Form
-
-```jsx
-const loginFields = [
+### Registration Form
+```tsx
+const registrationFields = [
   {
-    name: 'email',
-    label: 'Email Address',
-    type: 'email',
-    placeholder: 'you@example.com',
-    required: true,
-    validators: ['required', 'email']
+    name: "email",
+    type: "email",
+    label: "Email Address",
+    required: true
   },
   {
-    name: 'password',
-    label: 'Password',
-    type: 'password',
-    required: true,
-    validators: ['required', { type: 'minLength', value: 6 }]
+    name: "password",
+    type: "password",
+    label: "Password",
+    validators: [
+      { type: "minLength", value: 8 }
+    ]
+  },
+  {
+    name: "confirmPassword",
+    type: "password",
+    label: "Confirm Password",
+    validators: [
+      { type: "match", matchField: "password" }
+    ]
+  },
+  {
+    name: "terms",
+    type: "checkbox",
+    label: "I accept the terms",
+    required: true
   }
 ];
-
-<DynamicForm
-  fields={loginFields}
-  onSubmit={(values) => fetch('/api/login', { method: 'POST', body: JSON.stringify(values) })}
-  submitButtonText="Sign In"
-/>
 ```
 
 ### Contact Form
-
-```jsx
+```tsx
 const contactFields = [
-  { name: 'name', label: 'Name', required: true, validators: ['required'] },
-  { name: 'email', label: 'Email', type: 'email', required: true, validators: ['required', 'email'] },
-  { name: 'phone', label: 'Phone', type: 'tel', validators: ['phone'] },
-  { name: 'message', label: 'Message', type: 'textarea', rows: 5, required: true, validators: ['required'] },
-  { name: 'subscribe', label: 'Subscribe to updates', type: 'checkbox' }
+  {
+    name: "name",
+    label: "Full Name",
+    required: true
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Email",
+    required: true
+  },
+  {
+    name: "subject",
+    type: "select",
+    label: "Subject",
+    options: [
+      { value: "support", label: "Support" },
+      { value: "sales", label: "Sales" }
+    ]
+  },
+  {
+    name: "message",
+    type: "textarea",
+    label: "Message",
+    rows: 4,
+    required: true
+  }
 ];
+```
 
+## API Quick Reference
+
+### DynamicForm Props
+```tsx
 <DynamicForm
-  fields={contactFields}
-  onSubmit={(values) => console.log('Message:', values)}
-  submitButtonText="Send Message"
-  showResetButton
+  // Required props
+  fields={fields}               // Field configurations
+  onSubmit={(values) => {}}    // Form submission handler
+
+  // Optional props
+  validationMode="onBlur"      // "onChange" | "onBlur" | "onSubmit"
+  onError={(errors) => {}}     // Error callback
+  onValuesChange={() => {}}    // Values change callback
+  validateOnMount={false}       // Validate on initial render
+  submitButtonText="Submit"     // Custom submit button text
+  showResetButton={true}       // Show reset button
+  disabled={false}             // Disable entire form
+  className="custom-form"      // Additional CSS class
 />
 ```
 
+### Field Configuration
+```tsx
+{
+  name: "fieldName",           // Unique identifier
+  type: "text",               // Input type
+  label: "Field Label",       // Display label
+  placeholder: "Enter...",    // Placeholder text
+  required: true,             // Is required
+  disabled: false,            // Is disabled
+  validators: [],             // Validation rules
+  defaultValue: "",           // Initial value
+  className: "custom-field"   // Additional CSS class
+}
+```
+
 ## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## Performance
-
-- Optimized re-renders with React.memo
-- Memoized callbacks using useCallback
-- Efficient validation with early exits
-- Small bundle size (~15KB gzipped)
+- All modern browsers (Chrome, Firefox, Safari, Edge)
+- Internet Explorer 11 (with polyfills)
 
 ## License
-
-MIT License - see LICENSE file for details
-
-## Support & Contributing
-
-For issues, questions, or contributions, please visit [GitHub](https://github.com/yourusername/formguardian-react)
-
-## Changelog
-
-### v1.0.0
-- Initial release
-- Core validation system with 10+ validators
-- React components (DynamicForm, FormField)
-- Custom hooks (useFormValidator, useFormSubmission)
-- Micro-animations
-- Full TypeScript support
-- Comprehensive documentation
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+MIT © [Your Name](LICENSE)
