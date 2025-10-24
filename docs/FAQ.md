@@ -5,11 +5,11 @@
 ### Q: How do I use React Form Guard in my project?
 **A:** Install via npm and import the components:
 ```bash
-npm install react-form-guard
+npm install formguardian-react
 ```
 
 ```jsx
-import { DynamicForm } from 'react-form-guard';
+import { DynamicForm } from 'formguardian-react';
 ```
 
 ### Q: Can I validate multiple fields at once?
@@ -89,7 +89,7 @@ customization={{
 ### Q: Can I use hooks instead of the component?
 **A:** Yes! Use `useFormValidator` for more control:
 ```jsx
-import { useFormValidator } from 'react-form-guard';
+import { useFormValidator } from 'formguardian-react';
 
 const { formState, setFieldValue, validateFormFields } = useFormValidator(fields);
 ```
@@ -197,7 +197,7 @@ resetForm(); // Call in a button click handler
 
 ### Issue: Styles not applying
 **Solution:**
-- Import the default styles: `import 'react-form-guard/styles'`
+- Import the default styles: `import 'formguardian-react/styles'`
 - Check CSS class conflicts with your stylesheet
 - Use browser DevTools to inspect applied styles
 - Ensure CSS specificity isn't being overridden
@@ -267,8 +267,8 @@ The form is built with accessibility in mind:
 
 ## Community & Support
 
-- Report issues: [GitHub Issues](https://github.com/yourusername/react-form-guard/issues)
-- Discussions: [GitHub Discussions](https://github.com/yourusername/react-form-guard/discussions)
+- Report issues: [GitHub Issues](https://github.com/yourusername/formguardian-react/issues)
+- Discussions: [GitHub Discussions](https://github.com/yourusername/formguardian-react/discussions)
 - Documentation: [README.md](./README.md)
 
 ---

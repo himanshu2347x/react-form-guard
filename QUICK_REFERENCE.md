@@ -3,14 +3,14 @@
 ## Installation
 
 ```bash
-npm install react-form-guard
+npm install formguardian-react
 ```
 
 ## Basic Import
 
 ```tsx
-import { DynamicForm } from 'react-form-guard';
-import type { FieldConfig } from 'react-form-guard';
+import { DynamicForm } from 'formguardian-react';
+import type { FieldConfig } from 'formguardian-react';
 ```
 
 ## Minimal Example
@@ -123,7 +123,7 @@ interface DynamicFormProps {
 ## Using Hooks
 
 ```tsx
-import { useFormValidator } from 'react-form-guard';
+import { useFormValidator } from 'formguardian-react';
 
 const {
   formState,             // { values, errors, touched, isValid, isValidating }
@@ -326,7 +326,7 @@ import {
   validateForm,
   isEmpty,
   sanitizeValues
-} from 'react-form-guard';
+} from 'formguardian-react';
 
 // Validate single field
 const result = await validateField('user@example.com', { type: 'email' });
@@ -349,23 +349,23 @@ const clean = sanitizeValues(values, fields);
 
 ```tsx
 // Component usage
-import { DynamicForm } from 'react-form-guard';
+import { DynamicForm } from 'formguardian-react';
 
 // With TypeScript
-import { DynamicForm } from 'react-form-guard';
-import type { FieldConfig, FormState } from 'react-form-guard';
+import { DynamicForm } from 'formguardian-react';
+import type { FieldConfig, FormState } from 'formguardian-react';
 
 // Custom hooks
-import { useFormValidator, useFormSubmission } from 'react-form-guard';
+import { useFormValidator, useFormSubmission } from 'formguardian-react';
 
 // Individual components
-import { FormField } from 'react-form-guard';
+import { FormField } from 'formguardian-react';
 
 // Utilities
-import { validateField, validateForm, isEmpty } from 'react-form-guard';
+import { validateField, validateForm, isEmpty } from 'formguardian-react';
 
 // Styles
-import 'react-form-guard/styles';
+import 'formguardian-react/styles';
 ```
 
 ## CSS Classes

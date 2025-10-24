@@ -105,7 +105,7 @@ function MyForm() {
 ### Basic Form
 
 ```jsx
-import { DynamicForm } from 'react-form-guard';
+import { DynamicForm } from 'formguardian-react';
 
 const fields = [
   {
@@ -131,7 +131,7 @@ export function BasicForm() {
 ### Advanced Form with Validation
 
 ```jsx
-import { DynamicForm } from 'react-form-guard';
+import { DynamicForm } from 'formguardian-react';
 
 const registrationFields = [
   {
@@ -190,7 +190,7 @@ export function RegistrationForm() {
 ### Using Custom Hooks
 
 ```jsx
-import { useFormValidator } from 'react-form-guard';
+import { useFormValidator } from 'formguardian-react';
 
 function CustomForm() {
   const fields = [
@@ -336,7 +336,7 @@ const {
 #### validateField
 
 ```typescript
-import { validateField } from 'react-form-guard';
+import { validateField } from 'formguardian-react';
 
 const result = await validateField(
   'user@example.com',
@@ -348,7 +348,7 @@ const result = await validateField(
 #### validateForm
 
 ```typescript
-import { validateForm } from 'react-form-guard';
+import { validateForm } from 'formguardian-react';
 
 const errors = await validateForm(formValues, fields);
 // { password: 'Password must be at least 6 characters' }
@@ -357,7 +357,7 @@ const errors = await validateForm(formValues, fields);
 #### isEmpty
 
 ```typescript
-import { isEmpty } from 'react-form-guard';
+import { isEmpty } from 'formguardian-react';
 
 isEmpty('');      // true
 isEmpty([]);      // true
@@ -368,7 +368,7 @@ isEmpty('hello'); // false
 #### sanitizeValues
 
 ```typescript
-import { sanitizeValues } from 'react-form-guard';
+import { sanitizeValues } from 'formguardian-react';
 
 const clean = sanitizeValues(formValues, fields);
 // Trims strings, removes empty values
@@ -483,7 +483,7 @@ MIT License - see LICENSE file for details
 
 ## Support & Contributing
 
-For issues, questions, or contributions, please visit [GitHub](https://github.com/yourusername/react-form-guard)
+For issues, questions, or contributions, please visit [GitHub](https://github.com/yourusername/formguardian-react)
 
 ## Changelog
 

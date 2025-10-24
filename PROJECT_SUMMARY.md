@@ -8,7 +8,7 @@ A fully functional, production-ready **Form Validator Widget** has been successf
 
 ## ✨ What Has Been Built
 
-### Core Package: `react-form-guard` v1.0.0
+### Core Package: `formguardian-react` v1.0.0
 
 #### 1. **Reusable Components**
 
@@ -155,7 +155,7 @@ sanitizeValues(values, fields);
 ## 📁 Complete Project Structure
 
 ```
-react-form-guard/
+formguardian-react/
 ├── src/
 │   ├── components/
 │   │   ├── DynamicForm.tsx      (185 lines) - Main form component
@@ -215,7 +215,7 @@ Total: ~1,500 lines of production code + ~1,000 lines of documentation
 ## 📦 NPM Publishing Setup
 
 ### Configuration Complete
-✅ Package name: `react-form-guard`
+✅ Package name: `formguardian-react`
 ✅ Version: `1.0.0`
 ✅ Main entry: `./dist/index.js`
 ✅ ES module: `./dist/index.es.js`
@@ -244,7 +244,7 @@ npm publish
 
 ### Basic Form
 ```jsx
-import { DynamicForm } from 'react-form-guard';
+import { DynamicForm } from 'formguardian-react';
 
 const fields = [
   {
@@ -470,7 +470,7 @@ npm publish          # Publish to NPM registry
 
 ### Use in Your Project
 ```bash
-npm install react-form-guard
+npm install formguardian-react
 ```
 
 ---

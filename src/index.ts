@@ -12,8 +12,7 @@ export { useFormSubmission, useFormValidator } from './hooks/useFormValidator';
 
 // Types
 export type {
-    CustomValidator,
-    CustomizationOptions, FieldBlurHandler, FieldChangeHandler, FieldConfig,
+    CustomizationOptions, CustomValidator, FieldBlurHandler, FieldChangeHandler, FieldConfig,
     FieldError, FormConfig, FormState, FormSubmitHandler, InputType, ValidationResult, ValidationRule, ValidatorType
 } from './lib/types';
 
@@ -21,4 +20,4 @@ export type {
 export { isEmpty, sanitizeValues, validateField, validateForm } from './lib/validators';
 
 // Styles (import in your app)
-// import 'react-form-guard/styles/form.module.css'
+// import 'formguardian-react/styles/form.module.css'

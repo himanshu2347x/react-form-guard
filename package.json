@@ -36,11 +36,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/himanshu2347x/react-form-guard"
+    "url": "https://github.com/himanshu2347x/formguardian-react"
   },
-  "homepage": "https://github.com/himanshu2347x/react-form-guard#readme",
+  "homepage": "https://github.com/himanshu2347x/formguardian-react#readme",
   "bugs": {
-    "url": "https://github.com/himanshu2347x/react-form-guard/issues"
+    "url": "https://github.com/himanshu2347x/formguardian-react/issues"
   },
   "scripts": {
     "dev": "vite",

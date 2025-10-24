@@ -5,7 +5,7 @@ Welcome to React Form Guard! This guide will help you get started quickly.
 ## Installation
 
 ```bash
-npm install react-form-guard
+npm install formguardian-react
 ```
 
 ## Basic Setup
@@ -13,8 +13,8 @@ npm install react-form-guard
 ### 1. Import Components
 
 ```jsx
-import { DynamicForm } from 'react-form-guard';
-import 'react-form-guard/styles'; // Optional: default styles
+import { DynamicForm } from 'formguardian-react';
+import 'formguardian-react/styles'; // Optional: default styles
 ```
 
 ### 2. Define Your Fields
@@ -293,7 +293,7 @@ All standard HTML input types are supported:
 For more control, use the hooks directly:
 
 ```jsx
-import { useFormValidator } from 'react-form-guard';
+import { useFormValidator } from 'formguardian-react';
 
 function MyCustomForm() {
   const {
@@ -324,7 +324,7 @@ function MyCustomForm() {
 ### Using Default Styles
 
 ```jsx
-import 'react-form-guard/styles';
+import 'formguardian-react/styles';
 ```
 
 ### Custom CSS Classes
@@ -364,7 +364,7 @@ import 'react-form-guard/styles';
 ## Need Help?
 
 - Check the [FAQ](./FAQ.md)
-- Open an [Issue](https://github.com/yourusername/react-form-guard/issues)
+- Open an [Issue](https://github.com/yourusername/formguardian-react/issues)
 - Read the [Examples](./docs/)
 
 Happy form building! 🎉
