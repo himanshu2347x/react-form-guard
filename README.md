@@ -1,8 +1,8 @@
-# React Form Guard
+# FormGuardian React
 
-A powerful, reusable, and customizable Form Validator Widget for React with comprehensive validation, error handling, micro-animations, and TypeScript support. Built for easy integration into React applications and ready to publish as an npm package.
+A powerful, reusable, and customizable Form Validator Widget for React with comprehensive validation, error handling, micro-animations, and TypeScript support. Built for easy integration into React applications.
 
-[![npm version](https://img.shields.io/npm/v/react-form-guard.svg)](https://www.npmjs.com/package/react-form-guard)
+[![npm version](https://img.shields.io/npm/v/formguardian-react.svg)](https://www.npmjs.com/package/formguardian-react)
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ## Features
@@ -47,18 +47,18 @@ A powerful, reusable, and customizable Form Validator Widget for React with comp
 ## Installation
 
 ```bash
-npm install react-form-guard
+npm install formguardian-react
 # or
-yarn add react-form-guard
+yarn add formguardian-react
 # or
-pnpm add react-form-guard
+pnpm add formguardian-react
 ```
 
 ## Quick Start
 
 ```jsx
-import { DynamicForm } from 'react-form-guard';
-import 'react-form-guard/styles'; // Import default styles
+import { DynamicForm } from 'formguardian-react';
+import 'formguardian-react/dist/formguardian-react.css'; // Import default styles
 
 const fields = [
   {
