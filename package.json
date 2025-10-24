@@ -51,9 +51,9 @@
     "url": "https://github.com/himanshu2347x/formguardian-react/issues"
   },
   "scripts": {
-  "prebuild": "rimraf dist",
-  "dev": "vite",
-  "build": "vite build && tsc -p tsconfig.build.json",
+    "prebuild": "rimraf dist",
+    "dev": "vite",
+    "build": "vite build && tsc -p tsconfig.build.json",
     "lint": "eslint .",
     "preview": "vite preview"
   },
