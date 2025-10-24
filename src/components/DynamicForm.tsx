@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useFormSubmission, useFormValidator } from '../hooks/useFormValidator';
 import type { CustomizationOptions, FieldConfig } from '../lib/types';
-import styles from '../styles/form.module.css';
+// Styles are provided as a plain CSS entry (`src/styles/index.css`).
+// Consumers should import 'formguardian-react/styles' (side-effect) or the package will provide styles in dist.
 import FormField from './FormField';
 
 interface DynamicFormProps {
@@ -61,7 +62,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
   }, [formState.errors, onError]);
 
   const containerClass = [
-    styles['form-container'],
+    'form-container',
     className,
     customization?.containerClass,
   ]
@@ -69,17 +70,17 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
     .join(' ');
 
   const buttonClass = [
-    styles['form-button'],
-    styles.primary,
+    'form-button',
+    'primary',
     customization?.buttonClass,
-    isSubmitting && styles.loading,
+    isSubmitting && 'loading',
   ]
     .filter(Boolean)
     .join(' ');
 
   const resetButtonClass = [
-    styles['form-button'],
-    styles.secondary,
+    'form-button',
+    'secondary',
     customization?.buttonClass,
   ]
     .filter(Boolean)
@@ -111,7 +112,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
 
         {/* Submit error message */}
         {submitError && (
-          <div className={styles['error-boundary']}>
+          <div className="error-boundary">
             <span>⚠ {submitError}</span>
           </div>
         )}

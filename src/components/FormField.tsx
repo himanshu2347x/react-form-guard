@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import type { FieldBlurHandler, FieldChangeHandler, FieldConfig } from '../lib/types';
-import styles from '../styles/form.module.css';
+// Use plain CSS class names (styles provided via `src/styles/index.css`).
 
 interface FormFieldProps {
   field: FieldConfig;
@@ -44,16 +44,16 @@ export const FormField: React.FC<FormFieldProps> = ({
     // Used for focus state tracking if needed in future
   }, []);  const isError = touched && error;
   const fieldClassName = [
-    styles['form-group'],
-    isError && showAnimation && styles['has-error'],
+    'form-group',
+    isError && showAnimation && 'has-error',
   ]
     .filter(Boolean)
     .join(' ');
 
   const inputClassName = [
-    styles['form-input'],
-    isError && styles.error,
-    !isError && value && styles.success,
+    'form-input',
+    isError && 'error',
+    !isError && value && 'success',
   ]
     .filter(Boolean)
     .join(' ');
@@ -64,9 +64,9 @@ export const FormField: React.FC<FormFieldProps> = ({
       return (
         <div className={fieldClassName}>
           {field.label && (
-            <label className={`${styles['form-label']} ${isError ? styles.error : ''}`}>
+            <label className={`form-label ${isError ? 'error' : ''}`}>
               {field.label}
-              {field.required && <span className={styles['required-indicator']}>*</span>}
+              {field.required && <span className="required-indicator">*</span>}
             </label>
           )}
           <textarea
@@ -79,13 +79,13 @@ export const FormField: React.FC<FormFieldProps> = ({
             onFocus={handleFocus}
             disabled={disabled || field.disabled}
             rows={field.rows || 4}
-            className={`${inputClassName} ${styles['form-textarea']}`}
+            className={`${inputClassName} form-textarea`}
             aria-invalid={!!isError}
             aria-describedby={isError ? `${field.name}-error` : undefined}
           />
           {isError && (
-            <div id={`${field.name}-error`} className={styles['form-error']}>
-              <span className={styles['error-icon']}>⚠</span>
+            <div id={`${field.name}-error`} className="form-error">
+              <span className="error-icon">⚠</span>
               <span>{error}</span>
             </div>
           )}
@@ -96,9 +96,9 @@ export const FormField: React.FC<FormFieldProps> = ({
       return (
         <div className={fieldClassName}>
           {field.label && (
-            <label className={`${styles['form-label']} ${isError ? styles.error : ''}`}>
+            <label className={`form-label ${isError ? 'error' : ''}`}>
               {field.label}
-              {field.required && <span className={styles['required-indicator']}>*</span>}
+              {field.required && <span className="required-indicator">*</span>}
             </label>
           )}
           <select
@@ -109,7 +109,7 @@ export const FormField: React.FC<FormFieldProps> = ({
             onBlur={handleBlur}
             onFocus={handleFocus}
             disabled={disabled || field.disabled}
-            className={`${inputClassName} ${styles['form-select']}`}
+            className={`${inputClassName} form-select`}
             aria-invalid={!!isError}
             aria-describedby={isError ? `${field.name}-error` : undefined}
           >
@@ -121,8 +121,8 @@ export const FormField: React.FC<FormFieldProps> = ({
             ))}
           </select>
           {isError && (
-            <div id={`${field.name}-error`} className={styles['form-error']}>
-              <span className={styles['error-icon']}>⚠</span>
+            <div id={`${field.name}-error`} className="form-error">
+              <span className="error-icon">⚠</span>
               <span>{error}</span>
             </div>
           )}
@@ -142,16 +142,16 @@ export const FormField: React.FC<FormFieldProps> = ({
               onBlur={handleBlur}
               onFocus={handleFocus}
               disabled={disabled || field.disabled}
-              className={styles['form-checkbox']}
+              className="form-checkbox"
               aria-invalid={!!isError}
             />
-            <span className={styles['form-label']} style={{ margin: 0 }}>
+            <span className="form-label" style={{ margin: 0 }}>
               {field.label || field.placeholder}
             </span>
           </label>
           {isError && (
-            <div id={`${field.name}-error`} className={styles['form-error']}>
-              <span className={styles['error-icon']}>⚠</span>
+            <div id={`${field.name}-error`} className="form-error">
+              <span className="error-icon">⚠</span>
               <span>{error}</span>
             </div>
           )}
@@ -162,15 +162,15 @@ export const FormField: React.FC<FormFieldProps> = ({
       return (
         <div className={fieldClassName}>
           {field.label && (
-            <label className={styles['form-label']}>
+            <label className="form-label">
               {field.label}
-              {field.required && <span className={styles['required-indicator']}>*</span>}
+              {field.required && <span className="required-indicator">*</span>}
             </label>
           )}
           <fieldset>
             {field.options?.map((opt) => (
               <label key={opt.value} style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer' }}>
-                <input
+                  <input
                   name={field.name}
                   type="radio"
                   value={opt.value}
@@ -178,15 +178,15 @@ export const FormField: React.FC<FormFieldProps> = ({
                   onChange={handleChange}
                   onBlur={handleBlur}
                   disabled={disabled || field.disabled}
-                  className={styles['form-radio']}
+                    className="form-radio"
                 />
                 <span style={{ marginLeft: '0.5rem' }}>{opt.label}</span>
               </label>
             ))}
           </fieldset>
           {isError && (
-            <div id={`${field.name}-error`} className={styles['form-error']}>
-              <span className={styles['error-icon']}>⚠</span>
+            <div id={`${field.name}-error`} className="form-error">
+              <span className="error-icon">⚠</span>
               <span>{error}</span>
             </div>
           )}
@@ -197,9 +197,9 @@ export const FormField: React.FC<FormFieldProps> = ({
       return (
         <div className={fieldClassName}>
           {field.label && (
-            <label className={`${styles['form-label']} ${isError ? styles.error : ''}`}>
+            <label className={`form-label ${isError ? 'error' : ''}`}>
               {field.label}
-              {field.required && <span className={styles['required-indicator']}>*</span>}
+              {field.required && <span className="required-indicator">*</span>}
             </label>
           )}
           <input
@@ -220,8 +220,8 @@ export const FormField: React.FC<FormFieldProps> = ({
             aria-describedby={isError ? `${field.name}-error` : undefined}
           />
           {isError && (
-            <div id={`${field.name}-error`} className={styles['form-error']}>
-              <span className={styles['error-icon']}>⚠</span>
+            <div id={`${field.name}-error`} className="form-error">
+              <span className="error-icon">⚠</span>
               <span>{error}</span>
             </div>
           )}

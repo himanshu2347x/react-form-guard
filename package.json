@@ -15,8 +15,10 @@
       "default": "./dist/index.es.js"
     },
     "./styles": {
+      "types": "./dist/styles/index.d.ts",
       "default": "./dist/styles/index.css"
-    }
+    },
+    "./styles/*": "./dist/styles/*"
   },
   "files": [
     "dist",
@@ -53,7 +55,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "dev": "vite",
-    "build": "vite build && tsc -p tsconfig.build.json",
+  "build": "vite build && tsc -p tsconfig.build.json",
+  "postbuild": "node scripts/copy-styles.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
