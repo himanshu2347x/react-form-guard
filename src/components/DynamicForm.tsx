@@ -18,6 +18,7 @@ interface DynamicFormProps {
   showResetButton?: boolean;
   disabled?: boolean;
   className?: string;
+  submitThrottleMs?: number; // throttle delay for submit button
 }
 
 /**
@@ -36,6 +37,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
   showResetButton = false,
   disabled = false,
   className,
+  submitThrottleMs = 1000,
 }) => {
   const {
     formState,
@@ -45,10 +47,11 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
     resetForm,
   } = useFormValidator(fields, validationMode, validateOnMount);
 
-  const { handleSubmit, isSubmitting, submitError } = useFormSubmission(
+  const { handleSubmit, isSubmitting, isThrottled, submitError, setSubmitError } = useFormSubmission(
     onSubmit,
     validateFormFields,
-    formState.values
+    formState.values,
+    submitThrottleMs
   );
 
   // Notify parent of value changes
@@ -60,6 +63,14 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
   useEffect(() => {
     onError?.(formState.errors);
   }, [formState.errors, onError]);
+
+  // Auto-clear submit error when all field errors are resolved
+  useEffect(() => {
+    const hasErrors = Object.values(formState.errors).some(Boolean);
+    if (!hasErrors && submitError) {
+      setSubmitError(null);
+    }
+  }, [formState.errors, submitError, setSubmitError]);
 
   const containerClass = [
     'form-container',
@@ -121,7 +132,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
         <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
           <button
             type="submit"
-            disabled={disabled || isSubmitting || !formState.isValid}
+            disabled={disabled || isSubmitting || isThrottled}
             className={buttonClass}
           >
             {isSubmitting ? 'Submitting...' : submitButtonText}

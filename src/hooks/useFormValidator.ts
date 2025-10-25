@@ -2,7 +2,8 @@
  * Custom React hooks for form handling
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { debounce, throttle } from '../lib/debounceThrottle';
 import type { FieldConfig, FormState, ValidationRule, ValidatorType } from '../lib/types';
 import { validateField, validateForm } from '../lib/validators';
 
@@ -12,7 +13,8 @@ import { validateField, validateForm } from '../lib/validators';
 export function useFormValidator(
   fields: FieldConfig[],
   validationMode: 'onChange' | 'onBlur' | 'onSubmit' = 'onBlur',
-  validateOnMount: boolean = false
+  validateOnMount: boolean = false,
+  inputDebounceMs: number = 300
 ) {
   const [formState, setFormState] = useState<FormState>(() => {
     const initialValues: Record<string, unknown> = {};
@@ -58,6 +60,18 @@ export function useFormValidator(
     [fields, formState.values]
   );
 
+  // Debounced validator holder
+  const debouncedValidateRef = useRef<((fieldName: string, value: unknown) => void) | null>(null);
+  useEffect(() => {
+    debouncedValidateRef.current = debounce(async (fname: string, fvalue: unknown) => {
+      const error = await validateSingleField(fname, fvalue);
+      setFormState((prev) => ({
+        ...prev,
+        errors: { ...prev.errors, [fname]: error },
+      }));
+    }, inputDebounceMs);
+  }, [validateSingleField, inputDebounceMs]);
+
   /**
    * Update field value
    */
@@ -73,17 +87,11 @@ export function useFormValidator(
 
       // Validate based on validation mode
       if (validationMode === 'onChange') {
-        const error = await validateSingleField(fieldName, value);
-        setFormState((prev) => ({
-          ...prev,
-          errors: {
-            ...prev.errors,
-            [fieldName]: error,
-          },
-        }));
+        // Debounced validation
+        debouncedValidateRef.current?.(fieldName, value);
       }
     },
-    [validationMode, validateSingleField]
+    [validationMode]
   );
 
   /**
@@ -102,13 +110,15 @@ export function useFormValidator(
       const value = formState.values[fieldName];
       const error = await validateSingleField(fieldName, value);
 
-      setFormState((prev) => ({
-        ...prev,
-        errors: {
-          ...prev.errors,
-          [fieldName]: error,
-        },
-      }));
+      setFormState((prev) => {
+        const updatedErrors = { ...prev.errors, [fieldName]: error } as Record<string, string>;
+        const isValid = Object.values(updatedErrors).every((e) => !e);
+        return {
+          ...prev,
+          errors: updatedErrors,
+          isValid,
+        };
+      });
     }
   }, [validationMode, formState.values, validateSingleField]);
 
@@ -201,28 +211,33 @@ export function useFormValidator(
 export function useFormSubmission(
   onSubmit: (values: Record<string, unknown>) => void | Promise<void>,
   validateForm: () => Promise<boolean>,
-  currentValues: Record<string, unknown>
+  currentValues: Record<string, unknown>,
+  submitThrottleMs: number = 1000
 ) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isThrottled, setIsThrottled] = useState(false);
 
-  const handleSubmit = useCallback(
-    async (e?: React.FormEvent<HTMLFormElement>) => {
-      if (e) {
-        e.preventDefault();
-      }
+  // Create throttled submit function that always uses latest closures
+  const throttledSubmitRef = useRef<((e?: React.FormEvent<HTMLFormElement>) => void) | null>(null);
+  useEffect(() => {
+    throttledSubmitRef.current = throttle(async (e?: React.FormEvent<HTMLFormElement>) => {
+      if (e) e.preventDefault();
 
       setIsSubmitting(true);
       setSubmitError(null);
 
       try {
         const isValid = await validateForm();
-
         if (!isValid) {
           setSubmitError('Please fix the errors in the form');
           setIsSubmitting(false);
           return;
         }
+
+        // Start throttle window only when a valid submission begins
+        setIsThrottled(true);
+        setTimeout(() => setIsThrottled(false), submitThrottleMs);
 
         await onSubmit(currentValues);
         setIsSubmitting(false);
@@ -231,13 +246,17 @@ export function useFormSubmission(
         setSubmitError(message);
         setIsSubmitting(false);
       }
-    },
-    [onSubmit, validateForm, currentValues]
-  );
+    }, submitThrottleMs);
+  }, [onSubmit, validateForm, currentValues, submitThrottleMs]);
+
+  const handleSubmit = useCallback((e?: React.FormEvent<HTMLFormElement>) => {
+    throttledSubmitRef.current?.(e);
+  }, []);
 
   return {
     handleSubmit,
     isSubmitting,
+    isThrottled,
     submitError,
     setSubmitError,
   };
