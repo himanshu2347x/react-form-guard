@@ -73,9 +73,8 @@ const VALIDATORS: Record<ValidatorType, (value: unknown, rule?: ValidationRule) 
 
   phone: (value: unknown) => {
     if (typeof value !== 'string') return false;
-    // Basic phone validation: accepts digits, spaces, hyphens, parentheses, and + sign
-    const phoneRegex = /^[\d\s\-+()]{7,}$/;
-    return phoneRegex.test(value);
+    // Must be exactly 10 digits, no spaces, no symbols, no country code
+    return /^\d{10}$/.test(value);
   },
 };
 
