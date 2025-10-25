@@ -71,7 +71,6 @@ const LoginForm: React.FC = () => {
           onError={handleError}
           onValuesChange={handleValuesChange}
           validationMode="onBlur"
-          validateOnMount={false}
           submitButtonText="Sign In"
           showResetButton={true}
           customization={{

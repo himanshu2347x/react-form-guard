@@ -11,7 +11,6 @@ interface DynamicFormProps {
   onError?: (errors: Record<string, string>) => void;
   onValuesChange?: (values: Record<string, unknown>) => void;
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit';
-  validateOnMount?: boolean;
   customization?: CustomizationOptions;
   submitButtonText?: string;
   resetButtonText?: string;
@@ -30,7 +29,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
   onError,
   onValuesChange,
   validationMode = 'onBlur',
-  validateOnMount = false,
   customization,
   submitButtonText = 'Submit',
   resetButtonText = 'Reset',
@@ -45,7 +43,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
     setFieldTouched,
     validateFormFields,
     resetForm,
-  } = useFormValidator(fields, validationMode, validateOnMount);
+  } = useFormValidator(fields, validationMode);
 
   const { handleSubmit, isSubmitting, isThrottled, submitError, setSubmitError } = useFormSubmission(
     onSubmit,

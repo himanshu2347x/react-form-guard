@@ -13,7 +13,6 @@ import { validateField, validateForm } from '../lib/validators';
 export function useFormValidator(
   fields: FieldConfig[],
   validationMode: 'onChange' | 'onBlur' | 'onSubmit' = 'onBlur',
-  validateOnMount: boolean = false,
   inputDebounceMs: number = 300
 ) {
   const [formState, setFormState] = useState<FormState>(() => {
@@ -207,12 +206,7 @@ export function useFormValidator(
     []
   );
 
-  // Validate on mount if requested
-  useEffect(() => {
-    if (validateOnMount) {
-      void validateFormFields();
-    }
-  }, [validateOnMount, validateFormFields]);
+  // No validation on mount (feature removed)
 
   return {
     formState,

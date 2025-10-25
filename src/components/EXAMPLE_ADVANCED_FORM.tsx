@@ -143,7 +143,6 @@ export function AdvancedForm() {
           onError={handleError}
           onValuesChange={handleValuesChange}
           validationMode="onBlur"
-          validateOnMount={false}
           submitButtonText="Update Profile"
           resetButtonText="Clear Form"
           showResetButton={true}

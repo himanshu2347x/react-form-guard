@@ -387,7 +387,6 @@ Main component for rendering forms with validation.
   
   // Configuration
   validationMode="onBlur"          // "onChange" | "onBlur" | "onSubmit"
-  validateOnMount={false}          // Run validation on component mount
   submitThrottleMs={1000}          // Throttle valid submissions (ms). Prevents rapid resubmits.
   
   // UI Options
