@@ -136,7 +136,12 @@ Choose when validation runs:
 <DynamicForm fields={fields} validationMode="onSubmit" />
 ```
 
-### 4. Async Validation & Submission
+Notes:
+- In `onChange` mode, field validation is debounced by ~300ms. If the user pauses typing (e.g., typing `him@gm` and stopping), validation runs and the error appears smoothly without requiring blur.
+- In `onBlur` mode, validation runs when the field loses focus.
+- In `onSubmit` mode, validation runs for all fields upon submission only.
+
+### 4. Async Validation & Submission (with Submit Throttling)
 Perfect for checking username availability, email existence, etc.:
 
 ```tsx
@@ -161,6 +166,8 @@ const fields: FieldConfig[] = [
   onSubmit={async (values) => {
     await saveFormToAPI(values);
   }}
+  // Prevent fast double-submits; default is 1000ms
+  submitThrottleMs={1500}
 />
 ```
 
@@ -381,6 +388,7 @@ Main component for rendering forms with validation.
   // Configuration
   validationMode="onBlur"          // "onChange" | "onBlur" | "onSubmit"
   validateOnMount={false}          // Run validation on component mount
+  submitThrottleMs={1000}          // Throttle valid submissions (ms). Prevents rapid resubmits.
   
   // UI Options
   submitButtonText="Submit"        // Custom submit button label
@@ -527,12 +535,26 @@ const fields: FieldConfig[] = [
 ```
 
 ### ❓ **How do I disable the submit button until form is valid?**
-The submit button is automatically disabled when:
-- Form has validation errors
-- Form is currently submitting
-- Form is disabled
+By default, the button is disabled while submitting and during the throttle window (`submitThrottleMs`), or if you pass `disabled` to the form.
 
-No additional configuration needed!
+If you also want to disable submit while there are validation errors, derive a `disabled` flag from the errors via `onError`:
+
+```tsx
+function MyForm() {
+  const [hasErrors, setHasErrors] = useState(false);
+
+  return (
+    <DynamicForm
+      fields={fields}
+      onSubmit={handleSubmit}
+      onError={(errors) => setHasErrors(Object.values(errors).some(Boolean))}
+      validationMode="onChange"
+      submitThrottleMs={1500}
+      disabled={hasErrors}
+    />
+  );
+}
+```
 
 ### ❓ **Where's the documentation for all features?**
 Check out these files:
