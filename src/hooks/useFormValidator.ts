@@ -48,8 +48,10 @@ export function useFormValidator(
         ? field.validators.map(v => typeof v === 'string' ? { type: v as ValidatorType } : v)
         : [{ type: field.validators[0] as ValidatorType }];
 
+      // Merge latest typed value into form data snapshot to avoid stale validations on onChange
+      const currentFormData = { ...formState.values, [fieldName]: value };
       for (const rule of validators) {
-        const { isValid, message } = await validateField(value, rule as ValidationRule, formState.values);
+        const { isValid, message } = await validateField(value, rule as ValidationRule, currentFormData);
         if (!isValid) {
           return message;
         }
@@ -65,10 +67,28 @@ export function useFormValidator(
   useEffect(() => {
     debouncedValidateRef.current = debounce(async (fname: string, fvalue: unknown) => {
       const error = await validateSingleField(fname, fvalue);
-      setFormState((prev) => ({
-        ...prev,
-        errors: { ...prev.errors, [fname]: error },
-      }));
+      setFormState((prev) => {
+        const updatedErrors = { ...prev.errors, [fname]: error } as Record<string, string>;
+        const isValid = Object.values(updatedErrors).every((e) => !e);
+        const nextTouched = { ...prev.touched } as Record<string, boolean>;
+        const currentVal = prev.values[fname];
+        // Only mark as touched after debounce if there's an actual value and an error
+        if (
+          error && (
+            (typeof currentVal === 'string' && currentVal.trim().length > 0) ||
+            (typeof currentVal !== 'string' && currentVal !== undefined && currentVal !== null)
+          )
+        ) {
+          nextTouched[fname] = true;
+        }
+
+        return {
+          ...prev,
+          errors: updatedErrors,
+          touched: nextTouched,
+          isValid,
+        };
+      });
     }, inputDebounceMs);
   }, [validateSingleField, inputDebounceMs]);
 
