@@ -61,13 +61,13 @@ function LoginForm() {
 
 ## Key Concepts
 
-### 📋 Field Configuration
+###  Field Configuration
 Each field in the `fields` array describes how to render and validate a form input:
 
 ```tsx
 const fields: FieldConfig[] = [
   {
-    name: "email",           // ✅ REQUIRED - Unique field identifier
+    name: "email",           // REQUIRED - Unique field identifier
     type: "email",           // Optional - defaults to "text"
     label: "Email Address",  // Optional - displayed as label
     required: true,          // Optional - makes field required
@@ -79,9 +79,9 @@ const fields: FieldConfig[] = [
 ];
 ```
 
-> **⚠️ Important:** Always type your fields with `FieldConfig[]` for better IDE support and type safety!
+> ** Important:** Always type your fields with `FieldConfig[]` for better IDE support and type safety!
 
-### 🔍 Understanding Validators
+###  Understanding Validators
 
 Each field can have multiple validators. They run in order and stop at the first failure:
 
@@ -192,8 +192,6 @@ Props (most used):
 - onSubmit: (values) => void | Promise<void> (required)
 - validationMode?: 'onChange' | 'onBlur' | 'onSubmit' (default: 'onBlur')
 - submitThrottleMs?: number (default: 1000)
-- onError?: (errors: Record<string, string | null>) => void
-- onValuesChange?: (values: Record<string, unknown>) => void
 - submitButtonText?: string, resetButtonText?: string, showResetButton?: boolean
 - disabled?: boolean, className?: string
 
@@ -259,12 +257,6 @@ Validators that need configuration:
 ### ❓ How do I validate against an API?
 ```tsx
 { type: 'custom', message: 'Username taken', custom: async (v) => (await fetch(`/api/check?u=${v}`)).ok }
-```
-
-### ❓ How do I disable submit until valid?
-Derive a disabled flag from errors via `onError`:
-```tsx
-onError={(errors) => setHasErrors(Object.values(errors).some(Boolean))}
 ```
 
 ### ❓ Validators not working?

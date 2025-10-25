@@ -52,14 +52,6 @@ const LoginForm: React.FC = () => {
     alert("Login successful!");
   };
 
-  const handleError = (errors: Record<string, string>) => {
-    console.log("Form errors:", errors);
-  };
-
-  const handleValuesChange = (values: Record<string, unknown>) => {
-    console.log("Form values changed:", values);
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 p-4">
       <div className="bg-white p-8 shadow-2xl rounded-lg w-full max-w-md">
@@ -68,8 +60,6 @@ const LoginForm: React.FC = () => {
         <DynamicForm
           fields={loginFields}
           onSubmit={handleSubmit}
-          onError={handleError}
-          onValuesChange={handleValuesChange}
           validationMode="onBlur"
           submitButtonText="Sign In"
           showResetButton={true}

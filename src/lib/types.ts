@@ -83,10 +83,7 @@ export interface FormState {
 export interface FormConfig {
   fields: FieldConfig[];
   onSubmit: (values: Record<string, unknown>) => void | Promise<void>;
-  onError?: (errors: Record<string, string>) => void;
-  onValuesChange?: (values: Record<string, unknown>) => void;
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit';
-  validateOnMount?: boolean;
 }
 
 /** Validation result */

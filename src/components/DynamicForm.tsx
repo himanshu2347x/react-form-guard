@@ -8,8 +8,6 @@ import FormField from './FormField';
 interface DynamicFormProps {
   fields: FieldConfig[];
   onSubmit: (values: Record<string, unknown>) => void | Promise<void>;
-  onError?: (errors: Record<string, string>) => void;
-  onValuesChange?: (values: Record<string, unknown>) => void;
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit';
   customization?: CustomizationOptions;
   submitButtonText?: string;
@@ -26,8 +24,6 @@ interface DynamicFormProps {
 export const DynamicForm: React.FC<DynamicFormProps> = ({
   fields,
   onSubmit,
-  onError,
-  onValuesChange,
   validationMode = 'onBlur',
   customization,
   submitButtonText = 'Submit',
@@ -51,16 +47,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
     formState.values,
     submitThrottleMs
   );
-
-  // Notify parent of value changes
-  useEffect(() => {
-    onValuesChange?.(formState.values);
-  }, [formState.values, onValuesChange]);
-
-  // Notify parent of errors
-  useEffect(() => {
-    onError?.(formState.errors);
-  }, [formState.errors, onError]);
 
   // Auto-clear submit error when all field errors are resolved
   useEffect(() => {

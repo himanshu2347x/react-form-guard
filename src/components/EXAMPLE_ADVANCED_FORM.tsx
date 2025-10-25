@@ -123,14 +123,6 @@ export function AdvancedForm() {
     alert('Profile updated successfully!');
   };
 
-  const handleError = (errors: Record<string, string>) => {
-    console.log('Form errors:', errors);
-  };
-
-  const handleValuesChange = (values: Record<string, unknown>) => {
-    console.log('Form values changed:', values);
-  };
-
   return (
     <div className="max-w-2xl mx-auto p-6">
       <div className="bg-white rounded-lg shadow-lg p-8">
@@ -140,8 +132,6 @@ export function AdvancedForm() {
         <DynamicForm
           fields={fields}
           onSubmit={handleSubmit}
-          onError={handleError}
-          onValuesChange={handleValuesChange}
           validationMode="onBlur"
           submitButtonText="Update Profile"
           resetButtonText="Clear Form"
